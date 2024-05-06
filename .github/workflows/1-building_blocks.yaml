@@ -1,21 +1,42 @@
-name: 1-Building-Block
-on: push
+name: Build and Deploy
+on:
+  push:
+    branches:
+    - develop
+    - main
+
 jobs:
-    echo-hello:
-        runs-on: ubuntu-latest
-        steps: 
-            - name: Say Hello
-              run: echo "Say Hello"
-    echo-goodbye: 
-        runs-on:  ubuntu-latest
-        steps: 
-            - name: Say GoodBye
-              run: |
-                echo "I will fail"
-                 exit 1
-                -name: "Goodbye"
-                 runs: "echo GoodBye"
+  build: 
+    name: build on develop
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      # - name: Build on ${{github.ref_name}}
+      #   uses: actions/checkout@v3
+      - name: Code Building
+        run:  echo "building on dev"
 
+  # deploy:
+  #   name: Deploy on ${{github.ref_name}}
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/develop'
 
+  #   steps:
+  #     - name: Copy Code to AWS S3 Bucket
+  #       uses: jakejarvis/s3-sync-action@master
+  #       with:
+  #         args: --acl public-read --exclude '.git*/*'
+  #       env:
+  #         AWS_S3_BUCKET: be-edp-dev-prj
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.Dev_AWS_ACCESS_KEY_ID }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.Dev_AWS_SECRET_ACCESS_KEY }}
 
-
+  deployUAT:
+    name: Deploy on ${{github.ref_name}}  
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: UAT
+        run: echo "I am in the main branch"  
+ 
