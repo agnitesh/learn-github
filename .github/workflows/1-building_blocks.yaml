@@ -1,9 +1,11 @@
 name: Build and Deploy
 on:
-  push:
+  workflow_dispatch:
+  push:  
     branches:
     - develop
-    - uat
+    - main
+    
 
 jobs:
   build: 
@@ -33,7 +35,7 @@ jobs:
   #         AWS_SECRET_ACCESS_KEY: ${{ secrets.Dev_AWS_SECRET_ACCESS_KEY }}
 
   deployUAT:
-    name: Deploy on ${{github.ref_name}}  
+    name: DeployMAIN 
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
