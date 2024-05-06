@@ -45,7 +45,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Read UAT env variable 
-        run: echo "UAT AWS vars is ${{ env.MY_APP_ID }}"
+        run: echo "UAT AWS vars is" ${{ env.MY_APP_ID }}
 
       - name: UAT
         run: echo "I am in the main branch"  
