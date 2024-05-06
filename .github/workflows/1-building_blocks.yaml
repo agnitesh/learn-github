@@ -11,6 +11,7 @@ jobs:
   build: 
     name: build on develop
     runs-on: ubuntu-latest
+    environment: dev
     if: github.ref == 'refs/heads/develop'
     steps:
       # - name: Build on ${{github.ref_name}}
@@ -22,6 +23,7 @@ jobs:
   #   name: Deploy on ${{github.ref_name}}
   #   needs: build
   #   runs-on: ubuntu-latest
+  #   environment: Dev  
   #   if: github.ref == 'refs/heads/develop'
 
   #   steps:
@@ -35,10 +37,14 @@ jobs:
   #         AWS_SECRET_ACCESS_KEY: ${{ secrets.Dev_AWS_SECRET_ACCESS_KEY }}
 
   deployUAT:
-    name: DeployMAIN 
+    name: Deploy on ${{github.ref_name}}  
     runs-on: ubuntu-latest
+    environment: UAT
     if: github.ref == 'refs/heads/main'
     steps:
+      - name: Read UAT env variable 
+        run: echo "UAT AWS vars is ${{ vars.AWS_UAT }}"
+
       - name: UAT
         run: echo "I am in the main branch"  
  
