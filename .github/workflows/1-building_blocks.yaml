@@ -39,11 +39,13 @@ jobs:
   deployUAT:
     name: Deploy on ${{github.ref_name}}  
     runs-on: ubuntu-latest
-    environment: UAT
+    env:
+      MY_APP_ID: ${{ vars.AWS_UAT }}
+
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Read UAT env variable 
-        run: echo "UAT AWS vars is ${{ vars.AWS_UAT }}"
+        run: echo "UAT AWS vars is ${{ env.MY_APP_ID }}"
 
       - name: UAT
         run: echo "I am in the main branch"  
