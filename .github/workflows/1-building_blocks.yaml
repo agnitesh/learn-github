@@ -48,5 +48,7 @@ jobs:
         run: echo "UAT AWS vars is" ${{ env.MY_APP_ID }}
 
       - name: UAT
-        run: echo "I am in the main branch"  
+        run: echo "I am in the main branch"
+      - name: UAT
+        run: echo "Coming from JIRA for Approval"  
  
